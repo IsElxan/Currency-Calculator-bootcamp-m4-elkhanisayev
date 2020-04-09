@@ -3,17 +3,192 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="css/styles.css">
-        <script src="" defer></script>
-        <title>Converter &#128177;</title>
+        <!-- <script src="dist/main.js" defer></script> -->
+        <script src="index.js" defer></script>
+        <title>&#128177; Converter</title>
     </head>
     <body>
         <header>
-
+            <div class="header-wrapper">
+                <div class="header-logo-wrapper">
+                    <a href="#">
+                        <img src="assets/bank-LOGO.png" alt="bank-logo...">
+                    </a>
+                </div>
+                <div class="navs-wrapper">
+                    <div class="nav-item-wrapper">
+                        <a href="#">БАНК</a>
+                    </div>
+                    <div class="nav-item-wrapper">
+                        <a href="#">БИЗНЕС</a>
+                    </div>
+                    <div class="nav-item-wrapper">
+                        <a href="#">ИНВЕСТИЦИИ</a>
+                    </div>
+                    <div class="nav-item-wrapper">
+                        <a href="#">СТРАХОВАНИЕ</a>
+                    </div>
+                    <div class="nav-item-wrapper">
+                        <a href="#">МОБАЙЛ</a>
+                    </div>
+                    <div class="nav-item-wrapper">
+                        <a href="#">ПУТЕШЕСТВИЯ</a>
+                    </div>
+                    <div class="nav-item-wrapper">
+                        <a href="#">РАЗВЛЕЧЕНИЯ</a>
+                    </div>
+                </div>
+                <div class="header-enter-button-wrapper">
+                    <button class="header-enter-button">ВОЙТИ</button>
+                </div>
+            </div>
         </header>
-        <main>
 
+        <!-- 
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+        -->
+
+        <main>
+            <div class="main-wrapper">
+                <div class="converter-head-wrapper">
+                    <h1>Конвертер валют онлайн</h1>
+                </div>
+                <div class="converter">                 
+                    <div class="calculator">
+                        <div class="calculator-head">
+                            <span>У меня есть</span>
+                        </div>
+                        <div class="currency-selector">
+                            <div><span>RUB</span></div>
+                            <div><span>USD</span></div>
+                            <div><span>EUR</span></div>
+                            <div><span>GBP</span></div>
+                            <div class="currency-list-button" id="openCurrencyListButton">
+                                <span class="currency-list-button-span">&#8250;</span>
+                            </div>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" class="calculator-input">
+                            <div class="rate-wrapper">1 RUB = 0.0135 USD</div>
+                        </div>
+                    </div>
+
+                    <div class="castling">
+                        <span>&#8644;</span>
+                    </div>
+
+                    <div class="calculator">
+                        <div class="calculator-head">
+                            <span>Хочу приобрести</span>
+                        </div>
+                        <div class="currency-selector">
+                            <div><span>RUB</span></div>
+                            <div><span>USD</span></div>
+                            <div><span>EUR</span></div>
+                            <div><span>GBP</span></div>
+                            <div class="currency-list-button">
+                                <span class="currency-list-button-span">&#8250;</span>
+                            </div>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" class="calculator-input">
+                            <div class="rate-wrapper">1 RUB = 0.0135 USD</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
+        <!-- 
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+        -->
+
+        <footer>
+            <div class="first-footer-wrapper">
+                <span>Банк</span>
+                <span>8 800 666-43-07</span>
+            </div>
+
+            <div class="second-footer-wrapper">
+                <a href="#">О банке</a>
+                <a href="#">Новости</a>
+                <a href="#">Работа</a>
+                <a href="#">Точки пополнения</a>
+                <a href="#">Банкоматы</a>
+                <a href="#">Курсы валют</a>
+                <a href="#">Контакты</a>
+                <a href="#">Помощь</a>
+                <a href="#">Безопасность</a>
+                <a href="#">For investors</a>
+                <span>Для звонков по России</span>
+            </div>
+            
+            <div class="third-footer-wrapper">
+                <!-- <hr> -->
+                <p class="third-footer-text">
+                    <span>
+                        АО &#171;Банк&#187; использует файлы &#171;cookie&#187;, с целью персонализации сервисов и повышения удобства пользования веб-сайтом. &#171;Cookie&#187 представляют собой небольшик файлы,
+                    </span>
+                    <span>
+                        содержающие информацию о предидущих посещений веб-сайта. Если вы не хотите использовать файлы &#171;cookie&#187;, измените настройки браузера.
+                    </span>
+                </p>
+                <!-- <hr> -->
+                <div class="third-footer-license">
+                    <div>
+                        <span>
+                            &#169;2019-2020, АО &#171;Банк&#187;, официальный сайт, лицензия ЦБ РФ &#8470; 8765
+                        </span>
+                    </div>
+                    <div class="third-footer-links">
+                        <a href="#">
+                            <img src="assets/twitter-icon.png" alt="twitter">
+                        </a>
+                        <a href="#">
+                            <img src="assets/facebook-icon.png" alt="facebook">
+                        </a>
+                        <a href="#">
+                            <img src="assets/telegram-icon.png" alt="telegram">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- 
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+        -->
+
+        <div class="modal-box" id="modal-box">
+            <div class="modal-main-wrapper">
+                <div class="first-column"></div>
+                <div class="second-column"></div>
+                <div class="third-column"></div>
+            </div>
+        </div>
     </body>
 </html>

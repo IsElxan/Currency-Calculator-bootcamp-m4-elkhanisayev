@@ -1,0 +1,376 @@
+/*
+##########################################
+##########################################  config
+##########################################
+*/
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; 
+}
+
+body {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    /* padding-left: 10%;
+    padding-right: 10%; */
+}
+
+/*
+##########################################
+##########################################  header
+##########################################
+*/
+
+header {
+    padding-right: 10%;
+    padding-left: 10%;
+    background: #F5F5F6;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.header-wrapper {
+    min-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    /* padding-top: 17px; */
+    flex-wrap: nowrap;
+}
+
+.header-logo-wrapper { 
+    padding-top: 0.5%;
+}
+
+.header-logo-wrapper a img {
+    width: 100px;
+    height: 29px;
+}
+
+.navs-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    /* height: 100%; */
+}
+
+.nav-item-wrapper { /*!!*/
+    height: 100%;
+    /* vertical-align: middle; */
+    padding-top: 1.2%;
+}
+
+.nav-item-wrapper:first-child a {
+    color: #000000;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    /* margin-right: 15px; */
+}
+
+.nav-item-wrapper a {
+    color: #9ea3ab;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+/* .header-enter-button-wrapper {
+
+} */
+
+.header-enter-button {
+    letter-spacing: 0.06em;
+    border: none;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+
+}
+
+.header-enter-button:hover {
+    background-color: #000000;
+    color: #ffffff;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.9s;
+}
+
+.header-enter-button:active {
+    transform: translateY(5px);
+}
+
+/*
+##########################################
+##########################################  main
+##########################################
+*/
+
+main {
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-top: 55px;
+    padding-bottom: 150px;
+}
+
+.main-wrapper {
+    margin-left: 16.5%;
+}
+
+.converter-head-wrapper h1 {
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 42px;
+}
+
+.converter {
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-right: 20%;
+}
+
+.calculator {
+    width: 280px;
+    min-width: 260px;
+}
+
+.calculator-head {
+    margin-bottom: 10px;
+}
+
+.calculator-head span {
+    color: #9F9F9F;
+    font-size: 12px;
+}
+
+.currency-selector {
+    display: flex;
+}
+
+.currency-selector div {
+    width: 20%;
+    height: 35px;
+    padding: 10px;
+    border-top: 1px solid #E5E5E5;
+    border-bottom: 1px solid #E5E5E5;
+    border-right: 1px solid #E5E5E5;
+    text-align: center;
+    position: relative;
+    vertical-align: middle;
+    font-size: 80%;
+}
+
+.currency-selector div:first-child {
+    border-left: 1px solid #E5E5E5;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.currency-selector div:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.currency-list-button-span {
+    display: inline-block;
+    transform: rotate(90deg);    
+}
+
+.input-box {
+    margin-top: 25px;
+    width: 100%;
+
+    border-radius: 3px;
+    border: 1px solid #E5E5E5;
+    min-height: 120px;
+    padding: 20px;
+
+}
+
+.calculator-input {
+    width: 100%;
+    height: 100%;
+    font-size: 35px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+}
+
+.rate-wrapper {
+    margin-top: 10px;
+    color: #C6C6C6;
+    font-size: 12px; 
+}
+
+.castling {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 500%;
+    text-align: center;
+    /**
+    * Для эксплорера
+    */
+    -ms-user-select: none;
+
+    /**
+    * Для мозилы
+    */
+    -moz-user-select: none;
+
+    /**
+    * Для конкверора
+    */
+    -khtml-user-select: none;
+
+    /**
+    * Для Сафари и Хрома
+    */
+    -webkit-user-select: none;
+}
+
+
+.castling:hover span {
+    opacity: 0.7;
+    cursor: pointer;
+    
+}
+
+.castling:active span {
+    transform: translateY(5px);
+}
+
+/*
+##########################################
+##########################################  footer
+##########################################
+*/
+
+footer {
+    
+    /* margin-top: 100px; */
+    border-top: 1px solid #f2f2f2;
+    padding-top: 10px;
+    font-size: 50%;
+}
+
+.first-footer-wrapper {
+    padding-right: 10%;
+    padding-left: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.first-footer-wrapper span:first-child {
+    font-size: 15px;
+}
+
+.first-footer-wrapper span:last-child {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.second-footer-wrapper {
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    padding-right: 10%;
+    padding-left: 10%;
+}
+
+.second-footer-wrapper a {
+    
+    text-decoration: none;
+    color: #af80eb;
+    margin-right: 1%;
+    font-size: 14px;
+}
+
+.second-footer-wrapper span {
+    margin-left: auto;
+    color: #b0b5bb;
+    font-size: 14px;
+}
+
+.third-footer-wrapper {
+    background-color: #f5f5f6;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 10%;
+    padding-left: 10%;
+    /* height: 50%; */
+}
+
+.third-footer-wrapper hr {
+    /* background-color: #efeff0; */
+    border-color: #efeff0;
+    color: #efeff0;
+}
+
+.third-footer-text {
+    border-top: 1px solid #E5E5E5;
+    padding-top: 22px;
+    padding-bottom: 22px;
+}
+
+.third-footer-text span {
+    color: #b0b5bb;
+    font-size: 12px;
+}
+
+.third-footer-license {
+    border-top: 1px solid #E5E5E5;
+    padding-top: 22px;
+    padding-bottom: 20px;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.third-footer-license div:first-child {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.third-footer-license div span {
+    color: #b0b5bb;
+}
+
+.third-footer-links {
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.third-footer-links a img {
+    width: 33px;
+    height: 24px;
+}
+
+/*
+##########################################
+##########################################  modal
+##########################################
+*/
+
+.modal-box {
+    /* display: none; */
+    border: 1px solid #000000;
+    border-radius: 3px;
+    box-shadow: 0 10px 20px 0 #000000;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 20px 30px;
+    z-index: 1;
+    overflow: auto;
+    height: 250px;
+}
+
+
+
+/* 180px */

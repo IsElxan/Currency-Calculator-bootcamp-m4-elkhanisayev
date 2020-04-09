@@ -2,7 +2,8 @@ module.exports = {
     mode: 'production',
     entry: './index.js',
     output: {
-        filename: './main.minified.js',
+        filename: './main.js',
+        // change
     },
     module: {
         rules: [

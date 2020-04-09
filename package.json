@@ -4,7 +4,7 @@
   "description": "Currency Converter",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode=development",
     "build:prod": "webpack --config webpack.prod.config.js"
   },
   "repository": {
