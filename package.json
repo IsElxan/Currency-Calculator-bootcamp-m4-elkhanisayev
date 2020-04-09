@@ -1,0 +1,27 @@
+{
+  "name": "bootcamp-m4-elkhanisayev",
+  "version": "1.0.0",
+  "description": "Currency Converter",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "build:prod": "webpack --config webpack.prod.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsElxan/bootcamp-m4-elkhanisayev.git"
+  },
+  "author": "Elkhan Isayev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsElxan/bootcamp-m4-elkhanisayev/issues"
+  },
+  "homepage": "https://github.com/IsElxan/bootcamp-m4-elkhanisayev#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}
