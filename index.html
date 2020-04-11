@@ -11,6 +11,18 @@
         <title>&#128177; Converter</title>
     </head>
     <body>
+        
+        <!-- 
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+            ##################################################################################
+        -->
+
         <header>
             <div class="header-wrapper">
                 <div class="header-logo-wrapper">
@@ -68,22 +80,26 @@
                         <div class="calculator-head">
                             <span>У меня есть</span>
                         </div>
-                        <div class="currency-selector">
-                            <div><span>RUB</span></div>
-                            <div><span>USD</span></div>
-                            <div><span>EUR</span></div>
-                            <div><span>GBP</span></div>
-                            <div class="currency-list-button" id="openCurrencyListButton">
+                        <div class="currency-selector" id="firstCurrencySelector">
+                            <!-- <div class="currency-selector-button active-button"><span>RUB</span></div>
+                            <div class="currency-selector-button"><span>USD</span></div>
+                            <div class="currency-selector-button"><span>EUR</span></div>
+                            <div class="currency-selector-button"><span>GBP</span></div> -->
+                            <div class="currency-selector-button active-button">RUB</div>
+                            <div class="currency-selector-button">USD</div>
+                            <div class="currency-selector-button">EUR</div>
+                            <div class="currency-selector-button">GBP</div>
+                            <div class="currency-list-button" id="firstCurrencyListButton">
                                 <span class="currency-list-button-span">&#8250;</span>
-                            </div>
+                            </div>                                     
                         </div>
                         <div class="input-box">
-                            <input type="text" class="calculator-input">
+                            <input type="text" class="calculator-input" id="firstCalculatorInput">
                             <div class="rate-wrapper">1 RUB = 0.0135 USD</div>
                         </div>
                     </div>
 
-                    <div class="castling">
+                    <div class="castling" id="">
                         <span>&#8644;</span>
                     </div>
 
@@ -91,18 +107,30 @@
                         <div class="calculator-head">
                             <span>Хочу приобрести</span>
                         </div>
-                        <div class="currency-selector">
-                            <div><span>RUB</span></div>
-                            <div><span>USD</span></div>
-                            <div><span>EUR</span></div>
-                            <div><span>GBP</span></div>
-                            <div class="currency-list-button">
+                        <div class="currency-selector" id="secondCurrencySelector">
+                            <!-- <div class="currency-selector-button"><span>RUB</span></div>
+                            <div class="currency-selector-button active-button"><span>USD</span></div>
+                            <div class="currency-selector-button"><span>EUR</span></div>
+                            <div class="currency-selector-button"><span>GBP</span></div> -->
+                            <div class="currency-selector-button">RUB</div>
+                            <div class="currency-selector-button active-button">USD</div>
+                            <div class="currency-selector-button">EUR</div>
+                            <div class="currency-selector-button">GBP</div>
+                            <div class="currency-list-button" id="secondCurrencyListButton">
                                 <span class="currency-list-button-span">&#8250;</span>
                             </div>
                         </div>
                         <div class="input-box">
-                            <input type="text" class="calculator-input">
+                            <input type="text" class="calculator-input" id="secondCalculatorInput">
                             <div class="rate-wrapper">1 RUB = 0.0135 USD</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-box" id="modalBox">
+                        <div class="modal-main-wrapper">
+                            <div class="column"></div>
+                            <div class="column"></div>
+                            <div class="column"></div>
                         </div>
                     </div>
                 </div>
@@ -141,7 +169,6 @@
             </div>
             
             <div class="third-footer-wrapper">
-                <!-- <hr> -->
                 <p class="third-footer-text">
                     <span>
                         АО &#171;Банк&#187; использует файлы &#171;cookie&#187;, с целью персонализации сервисов и повышения удобства пользования веб-сайтом. &#171;Cookie&#187 представляют собой небольшик файлы,
@@ -150,7 +177,6 @@
                         содержающие информацию о предидущих посещений веб-сайта. Если вы не хотите использовать файлы &#171;cookie&#187;, измените настройки браузера.
                     </span>
                 </p>
-                <!-- <hr> -->
                 <div class="third-footer-license">
                     <div>
                         <span>
@@ -183,12 +209,8 @@
             ##################################################################################
         -->
 
-        <div class="modal-box" id="modal-box">
-            <div class="modal-main-wrapper">
-                <div class="first-column"></div>
-                <div class="second-column"></div>
-                <div class="third-column"></div>
-            </div>
+        <div class="loading-wrapper">
+            <div class="loading">Loading</div>
         </div>
     </body>
 </html>
