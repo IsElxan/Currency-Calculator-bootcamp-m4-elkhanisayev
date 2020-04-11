@@ -81,10 +81,6 @@
                             <span>У меня есть</span>
                         </div>
                         <div class="currency-selector" id="firstCurrencySelector">
-                            <!-- <div class="currency-selector-button active-button"><span>RUB</span></div>
-                            <div class="currency-selector-button"><span>USD</span></div>
-                            <div class="currency-selector-button"><span>EUR</span></div>
-                            <div class="currency-selector-button"><span>GBP</span></div> -->
                             <div class="currency-selector-button active-button">RUB</div>
                             <div class="currency-selector-button">USD</div>
                             <div class="currency-selector-button">EUR</div>
@@ -95,12 +91,12 @@
                         </div>
                         <div class="input-box">
                             <input type="text" class="calculator-input" id="firstCalculatorInput">
-                            <div class="rate-wrapper">1 RUB = 0.0135 USD</div>
+                            <div class="rate-wrapper" id="first-rate-wrapper"></div>
                         </div>
                     </div>
 
-                    <div class="castling" id="">
-                        <span>&#8644;</span>
+                    <div class="castling">
+                        <span id="castlingIcon">&#8644;</span>
                     </div>
 
                     <div class="calculator">
@@ -108,10 +104,6 @@
                             <span>Хочу приобрести</span>
                         </div>
                         <div class="currency-selector" id="secondCurrencySelector">
-                            <!-- <div class="currency-selector-button"><span>RUB</span></div>
-                            <div class="currency-selector-button active-button"><span>USD</span></div>
-                            <div class="currency-selector-button"><span>EUR</span></div>
-                            <div class="currency-selector-button"><span>GBP</span></div> -->
                             <div class="currency-selector-button">RUB</div>
                             <div class="currency-selector-button active-button">USD</div>
                             <div class="currency-selector-button">EUR</div>
@@ -121,8 +113,8 @@
                             </div>
                         </div>
                         <div class="input-box">
-                            <input type="text" class="calculator-input" id="secondCalculatorInput">
-                            <div class="rate-wrapper">1 RUB = 0.0135 USD</div>
+                            <input type="text" class="calculator-input" id="secondCalculatorInput" value="1">
+                            <div class="rate-wrapper" id="second-rate-wrapper"></div>
                         </div>
                     </div>
 
@@ -136,6 +128,8 @@
                 </div>
             </div>
         </main>
+
+        
 
         <!-- 
             ##################################################################################
