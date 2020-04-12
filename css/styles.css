@@ -101,7 +101,7 @@ main {
     padding-right: 10%;
     padding-left: 10%;
     padding-top: 55px;
-    padding-bottom: 150px;
+    padding-bottom: 100px;
 }
 
 .main-wrapper {
@@ -248,6 +248,21 @@ main {
 .active-button {
     background-color: #833AE0;
     color: #ffffff;
+}
+
+/*
+##########################################
+##########################################  charts
+##########################################
+*/
+
+.charts-main-wrapper {
+    padding-right: 22%;
+    padding-left: 22%;
+    padding-top: 10px;
+    padding-bottom: 100px;
+    display: flex;
+    justify-content: space-between;
 }
 
 /*

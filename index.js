@@ -1,4 +1,7 @@
 //  LITERALS
+// Add libs
+const dayjs = require('dayjs');
+import Chart from 'chart.js';
 //  FIRST
 const FIRST_RATE_WRAPPER                = document.querySelector('#first-rate-wrapper');
 const FIRST_CURRENCY_SELECTOR           = document.querySelector('#firstCurrencySelector');
@@ -6,6 +9,7 @@ const FIRST_CURRENCY_SELECT_BUTTON      = document.querySelector('#firstCurrency
 const FIRST_CURRENCY_SELECTOR_BUTTONS   = document.querySelectorAll('#firstCurrencySelector div:not(.currency-list-button)');
 const FIRST_CURRENCY_LIST_BUTTON        = document.querySelector('#firstCurrencyListButton');
 const FIRST_CALCULATOR_INPUT            = document.querySelector('#firstCalculatorInput');
+const FIRST_CANVAS                      = document.querySelector('#firstChart');
 //  SECOND
 const SECOND_RATE_WRAPPER               = document.querySelector('#second-rate-wrapper');
 const SECOND_CURRENCY_SELECTOR          = document.querySelector('#secondCurrencySelector');
@@ -13,8 +17,10 @@ const SECOND_CURRENCY_SELECT_BUTTON     = document.querySelector('#secondCurrenc
 const SECOND_CURRENCY_SELECTOR_BUTTONS  = document.querySelectorAll('#secondCurrencySelector div:not(.currency-list-button)');
 const SECOND_CURRENCY_LIST_BUTTON       = document.querySelector('#secondCurrencyListButton');
 const SECOND_CALCULATOR_INPUT           = document.querySelector('#secondCalculatorInput');
+const SECOND_CANVAS                     = document.querySelector('#secondChart');
 //  OTHER GLOBAL LITERALS
 const GLOBAL_RATIO                      = {};
+const WEEK_STATS                        = [];
 const CASTLING_ICON                     = document.querySelector('#castlingIcon');
 const CURRENCY_SELECTOR_BUTTONS         = document.querySelectorAll('.currency-selector-button');
 const MODAL_BOX                         = document.querySelector('#modalBox');
@@ -64,7 +70,6 @@ class Requester {
         this.calculator = new Calculator();
     }
 
-    // getRate = (selectedBtns) => {
     getRate(selectedBtns) {
         LOADER.style.display = 'flex';
         const first = selectedBtns.first;
@@ -73,9 +78,12 @@ class Requester {
         if(first == second) {
             GLOBAL_RATIO.first = 1;
             GLOBAL_RATIO.second = 1; 
+            WEEK_STATS.firstStats = [1,1,1,1,1,1,1];
+            WEEK_STATS.secondStats = [1,1,1,1,1,1,1];
             this.artisan.fillRateWrappers(first, second, 1);
             this.calculator.calculate(from);
             LOADER.style.display = 'none';
+            this.artisan.drawCharts();
         }
         else {
             const urls = [`https://api.ratesapi.io/api/latest?base=${first}&symbols=${second}`,`https://api.ratesapi.io/api/latest?base=${second}&symbols=${first}`];
@@ -90,6 +98,7 @@ class Requester {
                 this.artisan.fillRateWrappers(first, second, 1);
                 this.calculator.calculate(from);
                 LOADER.style.display = 'none';
+                this.getWeekStats(first, second); 
             })
             .catch(error => {
                 alert(error);
@@ -116,10 +125,51 @@ class Requester {
             LOADER.style.display = 'none';
         });
     }
+
+    getWeekStats(first, second) {
+        const seventhDay    = dayjs().format('YYYY-MM-DD');
+        const sixthDay      = dayjs().subtract(1, 'day').format('YYYY-MM-DD');
+        const fifthDay      = dayjs().subtract(2, 'day').format('YYYY-MM-DD');;
+        const fourthDay     = dayjs().subtract(3, 'day').format('YYYY-MM-DD');;
+        const thirdDay      = dayjs().subtract(4, 'day').format('YYYY-MM-DD');;
+        const secondDay     = dayjs().subtract(5, 'day').format('YYYY-MM-DD');;
+        const firstDay      = dayjs().subtract(6, 'day').format('YYYY-MM-DD');;
+        const urls = [
+            `https://api.ratesapi.io/api/${seventhDay}?base=${first}&symbols=${second}`,    
+            `https://api.ratesapi.io/api/${sixthDay}?base=${first}&symbols=${second}`,      
+            `https://api.ratesapi.io/api/${fifthDay}?base=${first}&symbols=${second}`,      
+            `https://api.ratesapi.io/api/${fourthDay}?base=${first}&symbols=${second}`,     
+            `https://api.ratesapi.io/api/${thirdDay}?base=${first}&symbols=${second}`,      
+            `https://api.ratesapi.io/api/${secondDay}?base=${first}&symbols=${second}`,     
+            `https://api.ratesapi.io/api/${firstDay}?base=${first}&symbols=${second}`,      
+            /*########################################################################*/
+            `https://api.ratesapi.io/api/${seventhDay}?base=${second}&symbols=${first}`,    
+            `https://api.ratesapi.io/api/${sixthDay}?base=${second}&symbols=${first}`,      
+            `https://api.ratesapi.io/api/${fifthDay}?base=${second}&symbols=${first}`,      
+            `https://api.ratesapi.io/api/${fourthDay}?base=${second}&symbols=${first}`,     
+            `https://api.ratesapi.io/api/${thirdDay}?base=${second}&symbols=${first}`,      
+            `https://api.ratesapi.io/api/${secondDay}?base=${second}&symbols=${first}`,     
+            `https://api.ratesapi.io/api/${firstDay}?base=${second}&symbols=${first}`,      
+        ]
+        Promise.all(urls.map(u => fetch(u)))
+        .then(responses => Promise.all(responses.map(res => res.json())))
+        .then(objArray => {
+            if(objArray.length == 0) {
+                throw 'Что-то пошло не так';
+            }
+            this.extractor.extractStatsForGraphs({ f: first, s: second, d: objArray });
+        })
+        .catch(error => {
+            alert(error);
+        });
+    }
 }
 
 class Extractor {
-    constructor() {}
+    constructor() {
+        this.artisan = new Artisan();
+    }
+
     extractCurrenciesList(data) {
         const artisan = new Artisan();
         const currencyList = [];
@@ -132,6 +182,30 @@ class Extractor {
             subList[i] = currencyList.slice((i*11), (i*11) + 11);               
         }  
         artisan.fillModalCurrencyList(subList);
+    }
+
+    extractStatsForGraphs(data) {
+        
+        const firstCurrency     = data.f;
+        const secondCurrency    = data.s;
+        const array             = data.d;
+        const firstResultArray  = [];
+        const secondResultArray = [];
+        if(array.length == 0) {
+            console.error('Что-то пошло не так');
+            return;
+        }
+        for(let i = 0; i < array.length; i++) {
+            if(array[i].base == firstCurrency) {
+                firstResultArray.push(array[i].rates[secondCurrency]);
+            }
+            else {
+                secondResultArray.push(array[i].rates[firstCurrency]);
+            }
+        }
+        WEEK_STATS.firstStats   = firstResultArray.reverse();
+        WEEK_STATS.secondStats  = secondResultArray.reverse();
+        this.artisan.drawCharts();
     }
 }
 
@@ -218,6 +292,37 @@ class Artisan {
         requester.getRate(selectedBtnsValue);
         return;
     }
+
+    drawCharts() {
+        var firstLineChart = new Chart(FIRST_CANVAS, {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7'],
+                datasets: [{
+                    label: 'Weekly trend',
+                    borderColor: 'rgb(67, 99, 132)',
+                    fill: false,
+                    data: WEEK_STATS.firstStats
+                }]
+            },
+            options: {}
+        });
+ 
+        console.log(SECOND_CANVAS);
+        var secondLineChart = new Chart(SECOND_CANVAS, {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7'],
+                datasets: [{
+                    label: 'Weekly trend',
+                    borderColor: 'rgb(67, 99, 132)',
+                    fill: false,
+                    data: WEEK_STATS.secondStats
+                }]
+            },
+            options: {}
+        });
+    }
 }
 
 class Calculator {
@@ -257,6 +362,7 @@ const handleCurrencyListButtonClick = (event) => {
 }
 
 const handleSelectorButtonClick = (event) => {
+    console.log(event);
     const selectedBtn = event.currentTarget;
     let currentActiveButton;
     if(selectedBtn.parentElement == FIRST_CURRENCY_SELECTOR) {
@@ -298,33 +404,37 @@ const handleInputTyping = (event) => {
         else {                                              // Typing in second input
             calculator.calculate(2);
         }
-        return;
     }
-    else if(symbol == 'Delete' || symbol == 'Backspace' || symbol == 'ArrowRight' || symbol == 'ArrowLeft' || symbol == 'ArrowUp' || symbol == 'ArrowDown') {
+    else if(symbol == 'Delete' || symbol == 'Backspace' || symbol == 'ArrowRight' || symbol == 'ArrowLeft' || symbol == 'ArrowUp' || symbol == 'ArrowDown' || symbol == 'Control' || symbol == 'a') {
         if(input == FIRST_CALCULATOR_INPUT) {               // Typing in first input
+            if(FIRST_CALCULATOR_INPUT.value.search('a')) {
+                FIRST_CALCULATOR_INPUT.value = FIRST_CALCULATOR_INPUT.value.replace(symbol, '');
+            }
             calculator.calculate(1);
         }
         else {                                              // Typing in second input
+            if(SECOND_CALCULATOR_INPUT.value.search('a')) {
+                SECOND_CALCULATOR_INPUT.value = SECOND_CALCULATOR_INPUT.value.replace(symbol, '');
+            }
             calculator.calculate(2);
         }
-        return;
     }
     else {
+        let position;
         if(input == FIRST_CALCULATOR_INPUT) {
-            FIRST_CALCULATOR_INPUT.value = FIRST_CALCULATOR_INPUT.value.slice(0, -1);
+            FIRST_CALCULATOR_INPUT.value = FIRST_CALCULATOR_INPUT.value.replace(symbol, '');
         }
         else {
-            SECOND_CALCULATOR_INPUT.value = SECOND_CALCULATOR_INPUT.value.slice(0, -1);
+            SECOND_CALCULATOR_INPUT.value = SECOND_CALCULATOR_INPUT.value.replace(symbol, '');
         }
-        return;
     }
+    return;
 }
 
 const handleCastling = (event) => {
-    // console.log(event);
     let firstFlaq, secondFlaq;
-    firstCurrentActiveButton    = FIRST_CURRENCY_SELECTOR.querySelector('.active-button');
-    secondCurrentActiveButton   = SECOND_CURRENCY_SELECTOR.querySelector('.active-button');
+    const firstCurrentActiveButton    = FIRST_CURRENCY_SELECTOR.querySelector('.active-button');
+    const secondCurrentActiveButton   = SECOND_CURRENCY_SELECTOR.querySelector('.active-button');
     firstCurrentActiveButton.classList.remove('active-button');
     secondCurrentActiveButton.classList.remove('active-button');
 
@@ -360,6 +470,10 @@ const handleCastling = (event) => {
     GLOBAL_RATIO.second = temporaryVariable;
     const calculator = new Calculator();
     calculator.calculate(1);
+    const secondTemporaryVariable = WEEK_STATS.firstStats;
+    WEEK_STATS.firstStats = WEEK_STATS.secondStats;
+    WEEK_STATS.secondStats = secondTemporaryVariable;
+    artisan.drawCharts();
 }
 
 FIRST_CURRENCY_LIST_BUTTON.addEventListener('click', handleCurrencyListButtonClick);
