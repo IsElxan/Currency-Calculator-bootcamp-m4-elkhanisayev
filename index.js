@@ -64,7 +64,8 @@ class Requester {
         this.calculator = new Calculator();
     }
 
-    getRate = async (selectedBtns) => {
+    // getRate = (selectedBtns) => {
+    getRate(selectedBtns) {
         LOADER.style.display = 'flex';
         const first = selectedBtns.first;
         const second = selectedBtns.second;
@@ -77,47 +78,49 @@ class Requester {
             LOADER.style.display = 'none';
         }
         else {
-            try {
-                const responseFirstToSecond = await fetch(`https://api.ratesapi.io/api/latest?base=${first}&symbols=${second}`);
-                const firstData = await responseFirstToSecond.json();
-                const responseSecondToFirst = await fetch(`https://api.ratesapi.io/api/latest?base=${second}&symbols=${first}`);
-                const secondData = await responseSecondToFirst.json();
-                if(firstData.rates == undefined) {
+            const urls = [`https://api.ratesapi.io/api/latest?base=${first}&symbols=${second}`,`https://api.ratesapi.io/api/latest?base=${second}&symbols=${first}`];
+            Promise.all(urls.map(u => fetch(u)))
+            .then(responses => Promise.all(responses.map(res => res.json())))
+            .then(objArray => {
+                if(objArray[0].rates == undefined || objArray[1].rates == undefined) {
                     throw 'Что-то пошло не так';
                 }
-                GLOBAL_RATIO.first = firstData.rates[second];
-                GLOBAL_RATIO.second = secondData.rates[first];
+                GLOBAL_RATIO.first = objArray[0].rates[second];
+                GLOBAL_RATIO.second = objArray[1].rates[first];
                 this.artisan.fillRateWrappers(first, second, 1);
                 this.calculator.calculate(from);
                 LOADER.style.display = 'none';
-            }
-            catch(error) {
+            })
+            .catch(error => {
                 alert(error);
                 LOADER.style.display = 'none';
-            }
+            });
         }
     }
 
-    getCurrenciesList = async () => {
-        try {
-            const response  = await fetch(`https://api.ratesapi.io/api/latest`); 
-            const data      = await response.json();
-            if(data == undefined) {
+    getCurrenciesList() {
+        const url = `https://api.ratesapi.io/api/latest`;
+        fetch(url)
+        .then(data => {
+            return data.json();
+        })
+        .then(result => {
+            if(result.rates == undefined) {
                 throw 'Что-то пошло не так';
             }
-            this.extractor.extractCurrenciesList(data);
+            this.extractor.extractCurrenciesList(result);
             LOADER.style.display = 'none';
-        }
-        catch(error) {
+        })
+        .catch(error => {
             alert(error);
             LOADER.style.display = 'none';
-        }
+        });
     }
 }
 
 class Extractor {
     constructor() {}
-    extractCurrenciesList = (data) => {
+    extractCurrenciesList(data) {
         const artisan = new Artisan();
         const currencyList = [];
         for(let currencyName in data.rates) {
@@ -134,7 +137,7 @@ class Extractor {
 
 class Artisan {
     constructor() {}
-    fillRateWrappers = (first, second, mode) => {
+    fillRateWrappers(first, second, mode) {
         switch(mode) {
             case 1:
                 FIRST_RATE_WRAPPER.innerText = `1 ${first} = ${GLOBAL_RATIO.first} ${second}`; 
@@ -147,7 +150,7 @@ class Artisan {
         }
     }
     
-    fillModalCurrencyList = (subList) => {
+    fillModalCurrencyList(subList) {
         for(let i = 0; i < 3; i++) {
             let curr = MODAL_BOX.querySelector(`.column:nth-child(${i+1})`);
             for(let j = 0; j < 11; j++) {
@@ -161,7 +164,7 @@ class Artisan {
         LOADER.style.display = 'none';
     }
 
-    changeFirstSelectButtonContent = (event) => {   
+    changeFirstSelectButtonContent(event) {   
         const selectedCurrency = event.currentTarget.lastChild.innerText;
         const activeListButton = document.querySelector('.currency-list-button-activated');
         let flaq;
@@ -219,7 +222,7 @@ class Artisan {
 
 class Calculator {
     constructor() {}
-    calculate = (operatingMode) => {
+    calculate(operatingMode) {
         switch(operatingMode) {
             case 1:
                 SECOND_CALCULATOR_INPUT.value = Number(FIRST_CALCULATOR_INPUT.value) * GLOBAL_RATIO.first;

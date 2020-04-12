@@ -4,8 +4,9 @@
   "description": "Currency Converter",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "build": "webpack --mode=development",
-    "build:production": "webpack --config webpack.prod.config.js"
+    "build:prod": "webpack --config webpack.prod.config.js"
   },
   "repository": {
     "type": "git",

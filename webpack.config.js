@@ -1,8 +1,21 @@
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: './index.js',
     output: {
-        filename: './main.js',
+        filename: './main.minified.js',
+        // change
     },
-}; 
- 
+    module: {
+        rules: [
+            {
+             test: /\.js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                    },
+                },
+            },
+        ],
+    },
+};
