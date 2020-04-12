@@ -12,8 +12,6 @@
 
 body {
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    /* padding-left: 10%;
-    padding-right: 10%; */
     position: relative;
 }
 
@@ -35,7 +33,6 @@ header {
     min-width: 500px;
     display: flex;
     justify-content: space-between;
-    /* padding-top: 17px; */
     flex-wrap: nowrap;
 }
 
@@ -52,12 +49,10 @@ header {
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    /* height: 100%; */
 }
 
-.nav-item-wrapper { /*!!*/
+.nav-item-wrapper { 
     height: 100%;
-    /* vertical-align: middle; */
     padding-top: 1.2%;
 }
 
@@ -65,7 +60,6 @@ header {
     color: #000000;
     text-decoration: none;
     letter-spacing: 0.06em;
-    /* margin-right: 15px; */
 }
 
 .nav-item-wrapper a {
@@ -75,10 +69,6 @@ header {
     margin-left: 15px;
     margin-right: 15px;
 }
-
-/* .header-enter-button-wrapper {
-
-} */
 
 .header-enter-button {
     letter-spacing: 0.06em;
@@ -267,8 +257,6 @@ main {
 */
 
 footer {
-    
-    /* margin-top: 100px; */
     border-top: 1px solid #f2f2f2;
     padding-top: 10px;
     font-size: 50%;
@@ -319,11 +307,9 @@ footer {
     padding-bottom: 25px;
     padding-right: 10%;
     padding-left: 10%;
-    /* height: 50%; */
 }
 
 .third-footer-wrapper hr {
-    /* background-color: #efeff0; */
     border-color: #efeff0;
     color: #efeff0;
 }
@@ -390,7 +376,6 @@ footer {
     overflow: auto;
     height: 100%;
     left: 0 ;
-    /* top: 40%; */
     width: 80%;
 }
 
@@ -415,7 +400,6 @@ footer {
 }
 
 .row:hover {
-    /* opacity: 2; */
     background-color: #b5a1cf;
     border-radius: 2px;
 }
@@ -427,8 +411,6 @@ footer {
 .row div:nth-child(2) {
     font-weight: bolder;
 }
-
-
 
 /*
 ##########################################

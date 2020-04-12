@@ -69,8 +69,6 @@ class Requester {
         const first = selectedBtns.first;
         const second = selectedBtns.second;
         const from = selectedBtns.from;
-        
-        // console.log(first, second);
         if(first == second) {
             GLOBAL_RATIO.first = 1;
             GLOBAL_RATIO.second = 1; 
@@ -82,11 +80,8 @@ class Requester {
             try {
                 const responseFirstToSecond = await fetch(`https://api.ratesapi.io/api/latest?base=${first}&symbols=${second}`);
                 const firstData = await responseFirstToSecond.json();
-                // console.log(firstData);
                 const responseSecondToFirst = await fetch(`https://api.ratesapi.io/api/latest?base=${second}&symbols=${first}`);
                 const secondData = await responseSecondToFirst.json();
-                // console.log(secondData);
-                // this.extractor.extractRates(firstData, secondData);
                 if(firstData.rates == undefined) {
                     throw 'Что-то пошло не так';
                 }
@@ -97,7 +92,6 @@ class Requester {
                 LOADER.style.display = 'none';
             }
             catch(error) {
-                // console.error('critical error' + error);
                 alert(error);
                 LOADER.style.display = 'none';
             }
@@ -115,7 +109,6 @@ class Requester {
             LOADER.style.display = 'none';
         }
         catch(error) {
-            // console.error('critical error' + error);
             alert(error);
             LOADER.style.display = 'none';
         }
@@ -131,9 +124,9 @@ class Extractor {
             currencyList.push(currencyName);    
         }
         currencyList.push('EUR');
-        const subList = [];                                                     // this part musr be in extractor
-        for (let i = 0; i <Math.ceil(currencyList.length/11); i++){             // // this part musr be in extractor
-            subList[i] = currencyList.slice((i*11), (i*11) + 11);               // this part musr be in extractor
+        const subList = [];                                                     
+        for (let i = 0; i <Math.ceil(currencyList.length/11); i++){            
+            subList[i] = currencyList.slice((i*11), (i*11) + 11);               
         }  
         artisan.fillModalCurrencyList(subList);
     }
@@ -216,7 +209,6 @@ class Artisan {
         const selectedBtnsValue = {
             first:  FIRST_CURRENCY_SELECTOR.querySelector('.active-button').innerText,
             second: SECOND_CURRENCY_SELECTOR.querySelector('.active-button').innerText,
-            // from: activeListButton == FIRST_CURRENCY_LIST_BUTTON ? 1 : 2
             from: 1
         };
         const requester = new Requester();
@@ -254,7 +246,7 @@ const handleCurrencyListButtonClick = (event) => {
         return;
     }
     currencyListButton.classList.add('currency-list-button-activated');                         // Add active class
-    currencyListButton.lastElementChild.innerHTML   = '&#8249;';                                // 
+    currencyListButton.lastElementChild.innerHTML   = '&#8249;';                                 
     MODAL_BOX.style.display = 'block';
     LOADER.style.display = 'flex';
     const requester = new Requester();
@@ -277,11 +269,9 @@ const handleSelectorButtonClick = (event) => {
         }
     }
     selectedBtn.classList.add('active-button');
-    // LOADER.style.display = 'flex';
     const selectedBtnsValue = {
         first:  FIRST_CURRENCY_SELECTOR.querySelector('.active-button').innerText,
         second: SECOND_CURRENCY_SELECTOR.querySelector('.active-button').innerText,
-        // from: selectedBtn.parentElement == FIRST_CURRENCY_SELECTOR ? 1 : 2
         from: 1
     };
     const requester = new Requester();
