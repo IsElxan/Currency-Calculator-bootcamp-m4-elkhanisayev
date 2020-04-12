@@ -74,7 +74,7 @@ class Requester {
         if(first == second) {
             GLOBAL_RATIO.first = 1;
             GLOBAL_RATIO.second = 1; 
-            this.artisan.fillRateWrappers(first, second);
+            this.artisan.fillRateWrappers(first, second, 1);
             this.calculator.calculate(from);
             LOADER.style.display = 'none';
         }
@@ -92,7 +92,7 @@ class Requester {
                 }
                 GLOBAL_RATIO.first = firstData.rates[second];
                 GLOBAL_RATIO.second = secondData.rates[first];
-                this.artisan.fillRateWrappers(first, second);
+                this.artisan.fillRateWrappers(first, second, 1);
                 this.calculator.calculate(from);
                 LOADER.style.display = 'none';
             }
@@ -141,10 +141,17 @@ class Extractor {
 
 class Artisan {
     constructor() {}
-
-    fillRateWrappers = (first, second) => {
-        FIRST_RATE_WRAPPER.innerText = `1 ${first} = ${GLOBAL_RATIO.first} ${second}`; 
-        SECOND_RATE_WRAPPER.innerHTML = `1 ${second} = ${GLOBAL_RATIO.second} ${first}`;
+    fillRateWrappers = (first, second, mode) => {
+        switch(mode) {
+            case 1:
+                FIRST_RATE_WRAPPER.innerText = `1 ${first} = ${GLOBAL_RATIO.first} ${second}`; 
+                SECOND_RATE_WRAPPER.innerHTML = `1 ${second} = ${GLOBAL_RATIO.second} ${first}`;            
+            break;
+            case 2:
+                FIRST_RATE_WRAPPER.innerText = `1 ${first} = ${GLOBAL_RATIO.second} ${second}`; 
+                SECOND_RATE_WRAPPER.innerHTML = `1 ${second} = ${GLOBAL_RATIO.first} ${first}`;  
+            break;
+        }
     }
     
     fillModalCurrencyList = (subList) => {
@@ -227,9 +234,6 @@ class Calculator {
             break;
             case 2:
                 FIRST_CALCULATOR_INPUT.value = Number(SECOND_CALCULATOR_INPUT.value) * GLOBAL_RATIO.second;
-            break;
-            case 3:
-                console.log('third');
             break;
         }
     }
@@ -324,14 +328,45 @@ const handleInputTyping = (event) => {
 }
 
 const handleCastling = (event) => {
-    console.log(event);
+    // console.log(event);
+    let firstFlaq, secondFlaq;
+    firstCurrentActiveButton    = FIRST_CURRENCY_SELECTOR.querySelector('.active-button');
+    secondCurrentActiveButton   = SECOND_CURRENCY_SELECTOR.querySelector('.active-button');
+    firstCurrentActiveButton.classList.remove('active-button');
+    secondCurrentActiveButton.classList.remove('active-button');
 
-
-
-
-
-
-
+    const firstValue = firstCurrentActiveButton.innerText;
+    const secondValue = secondCurrentActiveButton.innerText;
+    
+    firstFlaq = false;
+    FIRST_CURRENCY_SELECTOR_BUTTONS.forEach(element => {
+        if(element.innerText == secondValue) {
+            firstFlaq = true;
+            element.classList.add('active-button');
+        }
+    });
+    if(firstFlaq == false) {
+        FIRST_CURRENCY_SELECT_BUTTON.innerText = secondValue;
+        FIRST_CURRENCY_SELECT_BUTTON.classList.add('active-button');
+    }
+    secondFlaq = false;
+    SECOND_CURRENCY_SELECTOR_BUTTONS.forEach(element => {
+        if(element.innerText == firstValue) {
+            secondFlaq = true;
+            element.classList.add('active-button');
+        }
+    });
+    if(secondFlaq == false) {
+        SECOND_CURRENCY_SELECT_BUTTON.innerText = firstValue;
+        SECOND_CURRENCY_SELECT_BUTTON.classList.add('active-button');
+    }
+    const artisan = new Artisan();
+    artisan.fillRateWrappers(secondValue, firstValue, 2);
+    const temporaryVariable = GLOBAL_RATIO.first;
+    GLOBAL_RATIO.first = GLOBAL_RATIO.second;
+    GLOBAL_RATIO.second = temporaryVariable;
+    const calculator = new Calculator();
+    calculator.calculate(1);
 }
 
 FIRST_CURRENCY_LIST_BUTTON.addEventListener('click', handleCurrencyListButtonClick);
